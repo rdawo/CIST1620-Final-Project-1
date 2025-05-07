@@ -1,50 +1,61 @@
-import sys
-from PyQt6.QtWidgets import +
+from PyQt6.QtWidgets import QApplication
 from gui import Ui_MainWindow
 from logic import VoteTracker
+import sys
 
 
-class VoteController(QMainWindow):
+class Controller(Ui_MainWindow):
+    """Connects GUI to voting logic."""
     def __init__(self):
         super().__init__()
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
-        self.model = VoteTracker()
-        self.setup_connections()
+        self.vote_tracker = VoteTracker()
+        self.selected_candidate = None
+        self.connect_buttons()
 
-    def setup_connections(self):
-        self.ui.BiancaButton.clicked.connect(lambda: self.submit_vote('Bianca'))
-        self.ui.EdwardButton.clicked.connect(lambda: self.submit_vote('Edward'))
-        self.ui.FeliciaButton.clicked.connect(lambda: self.submit_vote('Felicia'))
+    def connect_buttons(self) -> None:
+        """Connect button clicks to logic."""
+        self.bianca_button.clicked.connect(lambda: self.select_candidate("Bianca"))
+        self.edward_button.clicked.connect(lambda: self.select_candidate("Edward"))
+        self.felicia_button.clicked.connect(lambda: self.select_candidate("Felicia"))
+        self.submit_button.clicked.connect(self.submit_vote)
 
-    def submit_vote(self, candidate_name):
-        voter_id = self.ui.IDNumber.text().strip()
+    def select_candidate(self, candidate: str) -> None:
+        """Mark a candidate as selected."""
+        self.selected_candidate = candidate
+        self.results_label.setText(f"Selected: {candidate}")
 
+    def submit_vote(self) -> None:
+        """Handle vote submission with validation."""
+        voter_id = self.voter_id_input.text().strip()
         if not voter_id:
-            self.ui.ResultsLabel.setText("Enter Voter ID.")
+            self.results_label.setText("Please enter a Voter ID.")
+            return
+        if not self.selected_candidate:
+            self.results_label.setText("Please select a candidate.")
+            return
+        if self.vote_tracker.has_voted(voter_id):
+            self.results_label.setText("You already voted.")
             return
 
-        if self.model.has_voted(voter_id):
-            self.ui.ResultsLabel.setText("This Voter ID has already voted.")
-            return
-
-        success = self.model.vote(voter_id, candidate_name)
+        success = self.vote_tracker.vote(voter_id, self.selected_candidate)
         if success:
-            results = self.model.get_results()
-            results_str = (
-                f"Bianca – {results['Bianca']}\n"
-                f"Edward – {results['Edward']}\n"
-                f"Felicia – {results['Felicia']}\n"
-            )
-            self.ui.ResultsLabel.setText(results_str)
+            results = self.vote_tracker.get_results()
+            formatted_results = []
+            for k, v in results.items():
+                formatted_results.append(f"{k}: {v}")
+            results_text = " | ".join(formatted_results)
+            self.results_label.setText(results_text)
         else:
-            self.ui.ResultsLabel.setText("Error: Could not record vote.")
-
-        self.ui.IDNumber.clear()
+            self.results_label.setText("Voting failed. Try again.")
 
 
-if __name__ == "__main__":
+def main() -> None:
+    """Start the application."""
     app = QApplication(sys.argv)
-    window = VoteController()
-    window.show()
+    controller = Controller()
+    controller.show()
     sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    main()

@@ -1,89 +1,85 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
+from PyQt6.QtWidgets import QMainWindow
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+class Ui_MainWindow(QMainWindow):
+    """GUI for the Voting Application using PyQt6."""
+    def __init__(self):
+        super().__init__()
+        self.setup_ui(self)
+
+    def setup_ui(self, MainWindow: QMainWindow) -> None:
+        """Initialize the GUI layout."""
+        MainWindow.setObjectName("CIS")
         MainWindow.resize(496, 589)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.IDNumber = QtWidgets.QLineEdit(parent=self.centralwidget)
-        self.IDNumber.setGeometry(QtCore.QRect(10, 50, 471, 31))
-        self.IDNumber.setPlaceholderText("")
-        self.IDNumber.setObjectName("IDNumber")
-        self.HeaderText = QtWidgets.QLabel(parent=self.centralwidget)
-        self.HeaderText.setGeometry(QtCore.QRect(10, 0, 471, 31))
-        self.HeaderText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.HeaderText.setObjectName("HeaderText")
-        self.VoterIdText = QtWidgets.QLabel(parent=self.centralwidget)
-        self.VoterIdText.setGeometry(QtCore.QRect(10, 20, 471, 31))
-        self.VoterIdText.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignVCenter)
-        self.VoterIdText.setObjectName("VoterIdText")
-        self.CanidateText = QtWidgets.QLabel(parent=self.centralwidget)
-        self.CanidateText.setGeometry(QtCore.QRect(10, 90, 471, 31))
-        self.CanidateText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.CanidateText.setObjectName("CanidateText")
-        self.SubmiButton = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.SubmiButton.setGeometry(QtCore.QRect(20, 410, 451, 32))
-        self.SubmiButton.setObjectName("SubmiButton")
-        self.ResultsText = QtWidgets.QLabel(parent=self.centralwidget)
-        self.ResultsText.setGeometry(QtCore.QRect(10, 460, 151, 31))
-        self.ResultsText.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.ResultsText.setObjectName("ResultsText")
-        self.ResultsLabel = QtWidgets.QLabel(parent=self.centralwidget)
-        self.ResultsLabel.setGeometry(QtCore.QRect(210, 450, 251, 51))
-        self.ResultsLabel.setObjectName("ResultsLabel")
-        self.layoutWidget = QtWidgets.QWidget(parent=self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 130, 471, 261))
-        self.layoutWidget.setObjectName("layoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.BiancaButton = QtWidgets.QPushButton(parent=self.layoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Ignored)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.BiancaButton.sizePolicy().hasHeightForWidth())
-        self.BiancaButton.setSizePolicy(sizePolicy)
-        self.BiancaButton.setObjectName("BiancaButton")
-        self.horizontalLayout.addWidget(self.BiancaButton)
-        self.EdwardButton = QtWidgets.QPushButton(parent=self.layoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Ignored)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.EdwardButton.sizePolicy().hasHeightForWidth())
-        self.EdwardButton.setSizePolicy(sizePolicy)
-        self.EdwardButton.setObjectName("EdwardButton")
-        self.horizontalLayout.addWidget(self.EdwardButton)
-        self.FeliciaButton = QtWidgets.QPushButton(parent=self.layoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Ignored)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.FeliciaButton.sizePolicy().hasHeightForWidth())
-        self.FeliciaButton.setSizePolicy(sizePolicy)
-        self.FeliciaButton.setObjectName("FeliciaButton")
-        self.horizontalLayout.addWidget(self.FeliciaButton)
+
+        self.voter_id_input = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.voter_id_input.setGeometry(QtCore.QRect(10, 50, 471, 31))
+        self.voter_id_input.setObjectName("voter_id_input")
+
+        self.header_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.header_label.setGeometry(QtCore.QRect(10, 0, 471, 31))
+        self.header_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.header_label.setObjectName("header_label")
+
+        self.voter_id_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.voter_id_label.setGeometry(QtCore.QRect(10, 20, 471, 31))
+        self.voter_id_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.voter_id_label.setObjectName("voter_id_label")
+
+        self.candidate_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.candidate_label.setGeometry(QtCore.QRect(10, 90, 471, 31))
+        self.candidate_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.candidate_label.setObjectName("candidate_label")
+
+        self.submit_button = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.submit_button.setGeometry(QtCore.QRect(20, 410, 451, 32))
+        self.submit_button.setObjectName("submit_button")
+
+        self.results_text = QtWidgets.QLabel(parent=self.centralwidget)
+        self.results_text.setGeometry(QtCore.QRect(10, 460, 151, 31))
+        self.results_text.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.results_text.setObjectName("results_text")
+
+        self.results_label = QtWidgets.QLabel(parent=self.centralwidget)
+        self.results_label.setGeometry(QtCore.QRect(210, 450, 251, 51))
+        self.results_label.setObjectName("results_label")
+
+        self.layout_widget = QtWidgets.QWidget(parent=self.centralwidget)
+        self.layout_widget.setGeometry(QtCore.QRect(10, 130, 471, 261))
+        self.layout_widget.setObjectName("layout_widget")
+
+        self.horizontal_layout = QtWidgets.QHBoxLayout(self.layout_widget)
+        self.horizontal_layout.setContentsMargins(0, 0, 0, 0)
+
+        self.bianca_button = QtWidgets.QPushButton(parent=self.layout_widget)
+        self.edward_button = QtWidgets.QPushButton(parent=self.layout_widget)
+        self.felicia_button = QtWidgets.QPushButton(parent=self.layout_widget)
+
+        for btn, name in [(self.bianca_button, "Bianca"),
+                          (self.edward_button, "Edward"),
+                          (self.felicia_button, "Felicia")]:
+            btn.setText(name)
+            btn.setObjectName(f"{name.lower()}_button")
+            self.horizontal_layout.addWidget(btn)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 496, 37))
-        self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
-        self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
+        self.retranslate_ui(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslate_ui(self, MainWindow: QMainWindow) -> None:
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.HeaderText.setText(_translate("MainWindow", "VOTING MENU"))
-        self.VoterIdText.setText(_translate("MainWindow", "Enter Voter ID:"))
-        self.CanidateText.setText(_translate("MainWindow", "Canidates (Pick One)"))
-        self.SubmiButton.setText(_translate("MainWindow", "Submit"))
-        self.ResultsText.setText(_translate("MainWindow", "Results"))
-        self.ResultsLabel.setText(_translate("MainWindow", "TextLabel"))
-        self.BiancaButton.setText(_translate("MainWindow", "Bianca"))
-        self.EdwardButton.setText(_translate("MainWindow", "Edward"))
-        self.FeliciaButton.setText(_translate("MainWindow", "Felicia"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Voting App"))
+        self.header_label.setText(_translate("MainWindow", "VOTING MENU"))
+        self.voter_id_label.setText(_translate("MainWindow", "Enter Voter ID:"))
+        self.candidate_label.setText(_translate("MainWindow", "Candidates (Pick One)"))
+        self.submit_button.setText(_translate("MainWindow", "Submit"))
+        self.results_text.setText(_translate("MainWindow", "Results"))
+        self.results_label.setText(_translate("MainWindow", "No votes yet"))
