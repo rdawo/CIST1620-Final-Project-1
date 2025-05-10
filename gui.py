@@ -3,13 +3,11 @@ from PyQt6.QtWidgets import QMainWindow
 
 
 class Ui_MainWindow(QMainWindow):
-    """GUI for the Voting Application using PyQt6."""
     def __init__(self):
         super().__init__()
         self.setup_ui(self)
 
     def setup_ui(self, MainWindow: QMainWindow) -> None:
-        """Initialize the GUI layout."""
         MainWindow.setObjectName("CIS")
         MainWindow.resize(496, 589)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)

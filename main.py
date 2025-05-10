@@ -5,7 +5,7 @@ import sys
 
 
 class Controller(Ui_MainWindow):
-    """Connects GUI to voting logic."""
+# connects GUI to voting logic
     def __init__(self):
         super().__init__()
         self.vote_tracker = VoteTracker()
@@ -13,19 +13,19 @@ class Controller(Ui_MainWindow):
         self.connect_buttons()
 
     def connect_buttons(self) -> None:
-        """Connect button clicks to logic."""
+# connect button clicks to logic
         self.bianca_button.clicked.connect(lambda: self.select_candidate("Bianca"))
         self.edward_button.clicked.connect(lambda: self.select_candidate("Edward"))
         self.felicia_button.clicked.connect(lambda: self.select_candidate("Felicia"))
         self.submit_button.clicked.connect(self.submit_vote)
 
     def select_candidate(self, candidate: str) -> None:
-        """Mark a candidate as selected."""
+# mark a candidate as selected
         self.selected_candidate = candidate
         self.results_label.setText(f"Selected: {candidate}")
 
     def submit_vote(self) -> None:
-        """Handle vote submission with validation."""
+# handle vote submission with validation
         voter_id = self.voter_id_input.text().strip()
         if not voter_id:
             self.results_label.setText("Please enter a Voter ID.")
@@ -50,7 +50,6 @@ class Controller(Ui_MainWindow):
 
 
 def main() -> None:
-    """Start the application."""
     app = QApplication(sys.argv)
     controller = Controller()
     controller.show()

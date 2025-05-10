@@ -2,7 +2,7 @@ import csv
 import os
 
 class VoteTracker:
-    """Tracks votes for each candidate and prevents duplicate voting."""
+# tracks votes for each candidate and prevents duplicate voting
 
     def __init__(self, filename: str = "votes.csv"):
         self._votes = {'Bianca': 0, 'Edward': 0, 'Felicia': 0}
@@ -11,7 +11,7 @@ class VoteTracker:
         self._load_data()
 
     def _load_data(self) -> None:
-        """Load votes and voter IDs from file."""
+# load votes and voter IDs from file
         if not os.path.exists(self._filename):
             return
         try:
@@ -27,7 +27,7 @@ class VoteTracker:
             print(f"Error loading vote data: {e}")
 
     def _save_vote(self, voter_id: str, candidate: str) -> None:
-        """Append a vote to the file."""
+# append a vote to the file
         try:
             with open(self._filename, mode='a', newline='') as file:
                 writer = csv.writer(file)
@@ -36,11 +36,11 @@ class VoteTracker:
             print(f"Error saving vote: {e}")
 
     def has_voted(self, voter_id: str) -> bool:
-        """Check if the voter has already voted."""
+# check if the voter has already voted
         return voter_id in self._voted_ids
 
     def vote(self, voter_id: str, candidate: str) -> bool:
-        """Register a vote if not already voted."""
+# register a vote if not already voted
         if self.has_voted(voter_id):
             return False
         if candidate in self._votes:
@@ -51,6 +51,6 @@ class VoteTracker:
         return False
 
     def get_results(self) -> dict:
-        """Return the current vote counts."""
+# return the current vote counts
         total = sum(self._votes.values())
         return {**self._votes, 'Total': total}
